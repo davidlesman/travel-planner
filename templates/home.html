@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Travel Planner</title>
+		<link rel="stylesheet" href="static/bulma.min.css">
+	</head>
+
+	<body class="has-text-centered">
+		<section class="hero is-primary">
+			<div class="hero-body">
+				<h1 class="title">Travel Planner</h1>
+				<h2 class="subtitle">The ultimate travel checklist</h2>
+			</div>
+		</section>
+
+		<div class="fixed-grid">
+			<div class="grid">
+				<div class="cell grid m-4">
+					<h3 class="title is-size-4">Flights</h3>
+					<form class="field has-addons has-text-centered" method="POST" action="/add">
+						<div class="control">
+							<input type="hidden" name="section" value="flight">
+							<input class="input" type="text" name="info" placeholder="Add flight" required>
+						</div>
+						<p class="control">
+							<button class="button" type="submit">Add</button>
+						</p>
+					</form>
+					<ul>
+						{% for flight in plan.flights %}
+						<li class="subtitle tag">{{ flight }} <button class="delete"
+								onclick="deleteItem('flight', {{ loop.index0 }})"></button></li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="cell grid m-4">
+					<h3 class="title is-size-4">Hotels</h3>
+					<form class="field has-addons has-text-centered" method="POST" action="/add">
+						<div class="control">
+							<input type="hidden" name="section" value="hotel">
+							<input class="input" type="text" name="info" placeholder="Add hotel" required>
+						</div>
+						<div class="control">
+							<button class="button" type="submit">Add</button>
+						</div>
+					</form>
+					<ul>
+						{% for hotel in plan.hotels %}
+						<li class="subtitle tag">{{ hotel }} <button class="delete"
+								onclick="deleteItem('hotel', {{ loop.index0 }})"></button></li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="cell grid m-4">
+					<h3 class="title is-size-4">Activities</h3>
+					<form class="field has-addons has-text-centered" method="POST" action="/add">
+						<div class="control">
+							<input type="hidden" name="section" value="activity">
+							<input class="input" type="text" name="info" placeholder="Add activity" required>
+						</div>
+						<div class="control">
+							<button class="button" type="submit">Add</button>
+						</div>
+					</form>
+					<ul>
+						{% for activity in plan.activities %}
+						<li class="subtitle tag">{{ activity }} <button class="delete"
+								onclick="deleteItem('activity', {{ loop.index0 }})"></button></li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="cell grid m-4">
+					<h3 class="title is-size-4">Taxis</h3>
+					<form class="field has-addons has-text-centered" method="POST" action="/add">
+						<div class="control">
+							<input type="hidden" name="section" value="taxi">
+							<input class="input" type="text" name="info" placeholder="Add taxi" required>
+						</div>
+						<div class="control">
+							<button class="button" type="submit">Add</button>
+						</div>
+					</form>
+					<ul>
+						{% for taxi in plan.taxis %}
+						<li class="subtitle tag">{{ taxi }} <button class="delete"
+								onclick="deleteItem('taxi', {{ loop.index0 }})"></button>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="cell grid m-4">
+					<h3 class="title is-size-4">Contacts</h3>
+					<form class="field has-addons has-text-centered" method="POST" action="/add">
+						<div class="control">
+							<input type="hidden" name="section" value="contact">
+							<input class="input" type="text" name="info" placeholder="Add contact" required>
+						</div>
+						<div class="control">
+							<button class="button" type="submit">Add</button>
+						</div>
+					</form>
+					<ul>
+						{% for contact in plan.contacts %}
+						<li class="subtitle tag">{{ contact }} <button class="delete"
+								onclick="deleteItem('contact', {{ loop.index0 }})"></button></li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="cell grid m-4">
+					<h3 class="title is-size-4">Extras</h3>
+					<form class="field has-addons has-text-centered" method="POST" action="/add">
+						<div class="control">
+							<input type="hidden" name="section" value="extra">
+							<input class="input" type="text" name="info" placeholder="Add extra" required>
+						</div>
+						<div class="control">
+							<button class="button" type="submit">Add</button>
+						</div>
+					</form>
+					<ul>
+						{% for extra in plan.extras %}
+						<li class="subtitle tag">{{ extra }} <button class="delete"
+								onclick="deleteItem('extra', {{ loop.index0 }})"></button></li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			function deleteItem(section, index) {
+				const form = document.createElement('form');
+				form.method = 'POST';
+				form.action = `/delete/${section}/${index}`;
+				document.body.appendChild(form);
+				form.submit();
+			}
+		</script>
+	</body>
+
+</html>
